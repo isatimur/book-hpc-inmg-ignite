@@ -2,11 +2,10 @@ package com.blu.imdg;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
-import org.apache.ignite.configuration.CacheConfiguration;
 import org.apache.ignite.configuration.IgniteConfiguration;
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
 import org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder;
-import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
+
 
 import java.util.Arrays;
 /**
@@ -32,18 +31,15 @@ public class HelloIgnite {
         // Start ignite
         Ignite ignite = Ignition.start(cfg);
         // get or create cache
-        IgniteCache<Integer, String> cache = ignite.getOrCreateCache("myCacheName");
+        IgniteCache<Integer, String> cache = ignite.getOrCreateCache("testCache");
         // put some cache elements
         for(int i = 1; i <= 100; i++){
             cache.put(i, Integer.toString(i));
         }
         // get them from the cache and write to the console
-        for(int i =1; i<= 100;i++){
+        for(int i =1; i<= 100; i++){
             System.out.println("Cache get:"+ cache.get(i));
         }
-        // statistics
-        //System.out.println("Cache Size:"+ cache.metrics(ignite.cluster()).getSize());
-        // close ignite instance
         ignite.close();
 
     }
