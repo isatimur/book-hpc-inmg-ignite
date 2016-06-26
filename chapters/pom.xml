@@ -17,5 +17,6 @@
   <modules>
     <module>chapter-one</module>
     <module>chapter-three</module>
+    <module>chapter-three-hibernate</module>
   </modules>
 </project>
