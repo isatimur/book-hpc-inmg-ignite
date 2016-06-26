@@ -38,29 +38,26 @@
 
         <property name="gridName" value="hibernate-grid"/>
         <!-- Enable client mode. -->
-        <property name="clientMode" value="false"/> <!-- should be false for myBatis-->
+        <property name="clientMode" value="false"/>
 
         <property name="cacheConfiguration">
             <list>
-                <bean class="org.apache.ignite.configuration.CacheConfiguration">
-                    <!-- Set a cache name. -->
-                    <property name="name" value="myHibernateCache"/>
-                    <!--<property name="atomicityMode" value="ATOMIC"/>-->
-                    <!-- Set cache mode. -->
-                    <property name="cacheMode" value="PARTITIONED"/>
-                    <property name="backups" value="1"/>
-                    <property name="statisticsEnabled" value="true" />
-                </bean>
+                <!--<bean class="org.apache.ignite.configuration.CacheConfiguration">-->
+                    <!--<property name="name" value="myHibernateCache"/>-->
+                    <!--<property name="cacheMode" value="PARTITIONED"/>-->
+                    <!--<property name="backups" value="1"/>-->
+                    <!--<property name="statisticsEnabled" value="true" />-->
+                <!--</bean>-->
                 <!--
                     Configurations for entity caches.
                 -->
-                <bean parent="transactional-cache">
+                <!--<bean parent="transactional-cache">
                     <property name="name" value="com.blu.imdg.dto.Employee"/>
-                </bean>
+                </bean> -->
                 <!-- Query cache (refers to atomic cache defined in above example). -->
-                <!--<bean parent="atomic-cache">
+                <bean parent="atomic-cache">
                     <property name="name" value="org.hibernate.cache.internal.StandardQueryCache"/>
-                </bean>-->
+                </bean>
             </list>
         </property>
         <!-- Explicitly configure TCP discovery SPI to provide list of initial nodes. -->
@@ -88,15 +85,39 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
     <!-- Hibernate session factory-->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 
-        <property name="dataSource">
-            <ref bean="dataSource"/>
-        </property>
-        <property name="mappingResources">
+        <property name="dataSource" ref="dataSource"/>
+
+        <property name="packagesToScan">
             <list>
-                <value>/com.blu.imdg.emp/Employee.hbm.xml</value>
+                <value>com.blu.imdg.dto</value>
             </list>
+        </property>
+        <!--<property name="mappingResources">-->
+            <!--<list>-->
+                <!--<value>/Employee.hbm.xml</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                <!-- Generate L2 cache statistics. -->
+                <prop key="hibernate.generate_statistics">true</prop>
+
+                <!-- Specify ignite as L2 cache provider. -->
+                <prop key="hibernate.cache.region.factory_class">org.apache.ignite.cache.hibernate.HibernateRegionFactory</prop>
+
+                <!-- Specify the name of the grid, that will be used for second level caching. -->
+                <prop key="org.apache.ignite.hibernate.grid_name">hibernate-grid</prop>
+                <!-- Set default L2 cache access type. -->
+                <prop key="org.apache.ignite.hibernate.default_access_type">READ_WRITE</prop>
+
+                <!-- Enable query cache. -->
+                <prop key="cache.use_query_cache">true</prop>
+                <prop key="show_sql">true</prop>
+
+            </props>
         </property>
     </bean>
     <bean id="empDAO" class="com.blu.imdg.EmpDaoImpl">

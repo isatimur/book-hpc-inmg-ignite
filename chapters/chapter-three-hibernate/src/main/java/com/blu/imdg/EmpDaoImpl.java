@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class EmpDaoImpl implements EmpDao {
 
     public List<Employee> getAllEmployees() {
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from Employee");
+        Query query = session.createQuery("from Employee e");
         List<Employee> employees =  query.list();
         session.close();
         if(employees != null && !employees.isEmpty()){
@@ -32,19 +33,17 @@ public class EmpDaoImpl implements EmpDao {
 
     public void create(Integer empno, String ename, String job, Integer mgr) {
         Session session = sessionFactory.openSession();
-//        Query query = session.createQuery("insert into Employee(empno, ename, job, mgr) VALUES (?,?,?,?)");
-//        query.setInteger("empno", empno);
-//        query.setString("ename", "test");
-//        query.setString("job", "clark");
-//        query.setInteger("mgr",mgr);
-//        query.executeUpdate();
-//        session.close();
+
         session.beginTransaction();
         Employee emp = new Employee();
         emp.setEmpno(empno);
         emp.setEname(ename);
         emp.setJob(job);
         emp.setMgr(mgr);
+        emp.setSal(1111);
+        emp.setDeptno(10);
+        emp.setDate(new Date(System.currentTimeMillis()));
+        emp.setComm(111);
         session.save(emp);
         session.getTransaction().commit();
         session.close();

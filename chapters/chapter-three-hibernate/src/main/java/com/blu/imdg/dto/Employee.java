@@ -1,19 +1,42 @@
 package com.blu.imdg.dto;
 
+
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * Created by shamim on 23/06/16.
  */
+@Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Table( name = "emp" )
 public class Employee implements Serializable{
+    @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "empno")
     private Integer empno;
+    @Column(name = "ename")
     private String ename;
+    @Column(name = "job")
     private String job;
+    @Column(name = "mgr")
     private Integer mgr;
+    @Column(name = "hiredate")
     private Date    date;
+    @Column(name = "sal")
     private Integer sal;
+    @Column(name = "deptno")
     private Integer deptno;
+    @Column(name = "comm")
+    private Integer comm;
+
+    public Employee() {
+    }
 
     public Integer getEmpno() {
         return empno;
@@ -69,5 +92,13 @@ public class Employee implements Serializable{
 
     public void setDeptno(Integer deptno) {
         this.deptno = deptno;
+    }
+
+    public Integer getComm() {
+        return comm;
+    }
+
+    public void setComm(Integer comm) {
+        this.comm = comm;
     }
 }
