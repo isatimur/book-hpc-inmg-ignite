@@ -42,12 +42,6 @@
 
         <property name="cacheConfiguration">
             <list>
-                <!--<bean class="org.apache.ignite.configuration.CacheConfiguration">-->
-                    <!--<property name="name" value="myHibernateCache"/>-->
-                    <!--<property name="cacheMode" value="PARTITIONED"/>-->
-                    <!--<property name="backups" value="1"/>-->
-                    <!--<property name="statisticsEnabled" value="true" />-->
-                <!--</bean>-->
                 <!--
                     Configurations for entity caches.
                 -->
