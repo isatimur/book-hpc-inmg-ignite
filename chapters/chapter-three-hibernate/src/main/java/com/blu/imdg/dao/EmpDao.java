@@ -10,4 +10,5 @@ import java.util.List;
 public interface EmpDao {
     List<Employee> getAllEmployees ();
     void create(Integer empno, String ename, String job, Integer mgr );
+    List<Employee> getEmpByName(String ename);
 }

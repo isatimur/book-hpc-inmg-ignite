@@ -45,12 +45,16 @@
                 <!--
                     Configurations for entity caches.
                 -->
-                <!--<bean parent="transactional-cache">
+                <bean parent="transactional-cache">
                     <property name="name" value="com.blu.imdg.dto.Employee"/>
-                </bean> -->
+                </bean>
                 <!-- Query cache (refers to atomic cache defined in above example). -->
                 <bean parent="atomic-cache">
                     <property name="name" value="org.hibernate.cache.internal.StandardQueryCache"/>
+                </bean>
+                <!-- Configuration for update timestamps cache, it's also necessary for query cache-->
+                <bean parent="atomic-cache">
+                    <property name="name" value="org.hibernate.cache.spi.UpdateTimestampsCache"/>
                 </bean>
             </list>
         </property>
@@ -88,11 +92,6 @@
                 <value>com.blu.imdg.dto</value>
             </list>
         </property>
-        <!--<property name="mappingResources">-->
-            <!--<list>-->
-                <!--<value>/Employee.hbm.xml</value>-->
-            <!--</list>-->
-        <!--</property>-->
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
@@ -107,8 +106,8 @@
                 <!-- Set default L2 cache access type. -->
                 <prop key="org.apache.ignite.hibernate.default_access_type">READ_WRITE</prop>
 
-                <!-- Enable query cache. -->
-                <prop key="cache.use_query_cache">true</prop>
+                <!-- Enable query cache. prefix hibernate is necessary here.-->
+                <prop key="hibernate.cache.use_query_cache">true</prop>
                 <prop key="show_sql">true</prop>
 
             </props>

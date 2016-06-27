@@ -27,5 +27,9 @@ public class WebService {
     public void addEmployee(Integer empno, String ename, String job, Integer mgr ) {
         empDao.create(empno, ename, job, mgr);
     }
+    @WebMethod(operationName = "getEmpByName")
+    public List<Employee> getEmpByName(String ename) {
+        return empDao.getEmpByName(ename);
+    }
 }
 

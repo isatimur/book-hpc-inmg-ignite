@@ -48,4 +48,13 @@ public class EmpDaoImpl implements EmpDao {
         session.getTransaction().commit();
         session.close();
     }
+
+    public List<Employee> getEmpByName(String ename) {
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from Employee e where e.ename=:ename");
+        query.setParameter("ename", ename);
+        query.setCacheable(true);
+        List<Employee> employees =  query.list();
+        return employees;
+    }
 }
