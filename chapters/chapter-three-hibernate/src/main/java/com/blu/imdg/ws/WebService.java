@@ -2,8 +2,10 @@ package com.blu.imdg.ws;
 
 import com.blu.imdg.dao.EmpDao;
 import com.blu.imdg.dto.Employee;
+import com.blu.imdg.dto.ExchangeRate;
 
 import javax.jws.WebMethod;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +32,21 @@ public class WebService {
     @WebMethod(operationName = "getEmpByName")
     public List<Employee> getEmpByName(String ename) {
         return empDao.getEmpByName(ename);
+    }
+    @WebMethod(operationName = "getExchangeRateByRegion")
+    public String getExchangeRateByRegion(String str){
+       return empDao.getExchangeRateByRegion(str);
+    }
+    @WebMethod(operationName = "updateExchangeRate")
+    public void updateExchangeRate(String region, Date rateDate, double usdollar, double euro, double gbp){
+        ExchangeRate e = new ExchangeRate();
+        e.setRegion(region);
+        e.setUsdollar(usdollar);
+        e.setEuro(euro);
+        e.setGbp(gbp);
+        e.setRateDate(rateDate);
+
+        empDao.updateExchange(e);
     }
 }
 
