@@ -19,7 +19,7 @@ public class PutElementstoOffHeap {
         Ignite ignite = Ignition.start("spring-offheap-tierd.xml");
         // get or create cache
         IgniteCache<Integer, String> cache =  ignite.getOrCreateCache("offheap-cache");
-        for(int i = 1; i < 1000; i++){
+        for(int i = 999; i < 2000; i++){
             cache.put(i, Integer.toString(i));
         }
         for(int i =1; i<1000;i++){

@@ -27,22 +27,17 @@
       <artifactId>ignite-spring</artifactId>
       <version>${ignite.version}</version>
     </dependency>
-    <!-- Spring orm-->
-    <!--<dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-      <version>4.1.0.RELEASE</version>
-    </dependency> -->
+
   </dependencies>
     <build>
-    <!--<plugins>
+    <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.blu.imdg.RunWebService</mainClass>
+              <mainClass>com.blu.imdg.PutElementstoOffHeap</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -59,7 +54,7 @@
           </execution>
         </executions>
       </plugin>
-    </plugins>  -->
+    </plugins>
   </build>
   <!-- One-Jar is in the googlecode repository -->
   <pluginRepositories>
