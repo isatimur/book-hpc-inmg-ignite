@@ -18,5 +18,6 @@
     <module>chapter-one</module>
     <module>chapter-three</module>
     <module>chapter-three-hibernate</module>
+    <module>chapter-three-offheap</module>
   </modules>
 </project>

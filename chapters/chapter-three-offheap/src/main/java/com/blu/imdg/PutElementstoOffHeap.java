@@ -14,20 +14,29 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class PutElementstoOffHeap {
     public static void main(String[] args) throws Exception{
-        System.out.println("Put elements to Off Heap Memory!");
+        if(args.length <= 0){
+            System.out.println("Usages! java -jar .\\target\\chapter-three-offheap-1.0-SNAPSHOT.one-jar.jar spring-offheap-tiered.xml");
+            System.exit(0);
+        }
+        String springCoreFile = args[0];
         // Start Ignite cluster
-        Ignite ignite = Ignition.start("spring-offheap-tierd.xml");
+        Ignite ignite = Ignition.start(springCoreFile);
         // get or create cache
         IgniteCache<Integer, String> cache =  ignite.getOrCreateCache("offheap-cache");
-        for(int i = 999; i < 2000; i++){
+        for(int i = 1; i <= 1000; i++){
             cache.put(i, Integer.toString(i));
         }
-        for(int i =1; i<1000;i++){
+        for(int i =1; i<=1000;i++){
             System.out.println("Cache get:"+ cache.get(i));
         }
-        Thread.sleep(Integer.MAX_VALUE); // sleep for 20 seconds
+        System.out.println("Wait 10 seconds for statistics");
+        Thread.sleep(10000);
         // statistics
         System.out.println("Cache Hits:"+ cache.metrics(ignite.cluster()).getCacheHits());
+
+        System.out.println("Enter crtl-x to quite the application!!!");
+        Thread.sleep(Integer.MAX_VALUE); // sleep for 20 seconds
+
         ignite.close();
     }
 }
