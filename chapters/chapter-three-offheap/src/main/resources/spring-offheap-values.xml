@@ -25,11 +25,16 @@
                     <property name="cacheMode" value="PARTITIONED"/>
                     <property name="backups" value="1"/>
                     <property name="statisticsEnabled" value="true" />
-                    <!-- Always store cache entries in off-heap memory. -->
-                    <property name="memoryMode" value="OFFHEAP_TIERED"/>
+                    <!-- Stores entries in on-heap memory -->
+                    <property name="memoryMode" value="OFFHEAP_VALUES"/>
                     <!-- Enable Off-Heap memory with max size of 1 Gigabytes (0 for unlimited). -->
                     <property name="offHeapMaxMemory" value="#{1 * 1024L * 1024L * 1024L}"/>
-                    <!--<property name="swapEnabled" value="true"/>-->
+                    <property name="evictionPolicy">
+                        <bean class="org.apache.ignite.cache.eviction.fifo.FifoEvictionPolicy">
+                            <!-- Evict to off-heap after cache size reaches maxSize. -->
+                            <property name="maxSize" value="100"/>
+                        </bean>
+                    </property>
                 </bean>
             </list>
         </property>
