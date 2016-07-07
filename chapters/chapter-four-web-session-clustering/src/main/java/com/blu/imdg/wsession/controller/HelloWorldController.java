@@ -19,15 +19,17 @@ public class HelloWorldController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String sayHello(ModelMap model, HttpServletRequest request) {
 		model.addAttribute("greeting", "Hello World from Spring 4 MVC");
+        String paramName = request.getParameter("name");
         //model.addAttribute("personObj", new Person());
-		request.getSession().setAttribute("TEST", new Person("Test"));
+		request.getSession().setAttribute(paramName, new Person(paramName));
 		return "welcome";
 	}
 
 	@RequestMapping(value="/helloagain", method = RequestMethod.GET)
 	public String sayHelloAgain(ModelMap model, HttpServletRequest request) {
+        String paramName = request.getParameter("name");
         // set session
-		model.addAttribute("greeting", request.getSession().getAttribute("TEST"));
+		model.addAttribute("greeting", ((Person)request.getSession().getAttribute(paramName)).getFirstName());
 		return "welcome";
 	}
 
