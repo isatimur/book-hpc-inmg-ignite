@@ -2,20 +2,38 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/cache
         http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+        http://www.springframework.org/schema/mvc
+ 	    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd ">
-    <!-- Enable annotation-driven caching. -->
-    <cache:annotation-driven/>
-    <!-- Ignite-->
-    <bean id="cacheManager" class="org.apache.ignite.cache.spring.SpringCacheManager">
-        <property name="configuration" ref="ignite.cfg" />
 
+    <!--<import resource="spring-servlet.xml"/>-->
+
+    <context:component-scan base-package="com.blu.imdg.wsession.controller" />
+
+    <mvc:annotation-driven />
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/views/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
     </bean>
+
+    <!--<cache:annotation-driven/>-->
+
+    <!--<bean id="cacheManager" class="org.apache.ignite.cache.spring.SpringCacheManager">-->
+        <!--<property name="configuration" ref="ignite.cfg" />-->
+    <!--</bean>-->
+
     <bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
         <property name="peerClassLoadingEnabled" value="false"/>
         <property name="gridName" value="offheap-grid"/>
@@ -29,8 +47,7 @@
                     <property name="backups" value="1"/>
                     <!-- Cache name. -->
                     <property name="name" value="session-cache"/>
-
-                    <!-- Set up LRU eviction policy with 10000 sessions limit. -->
+                    <!-- Setup LRU eviction policy with 10000 sessions limit. -->
                     <property name="evictionPolicy">
                         <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
                             <property name="maxSize" value="10000"/>
@@ -48,7 +65,7 @@
                             <list>
                                 <!-- In distributed environment, replace with actual host IP address. -->
                                 <value>127.0.0.1:47500..47509</value>
-                                <!--<value>192.168.15.150:47500..47509</value>-->
+                                <value>192.168.15.150:47500..47509</value>
                             </list>
                         </property>
                     </bean>
