@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/")
-@SessionAttributes("personObj")
 public class WebSessionController {
 
 	@RequestMapping(value="/putperson", method = RequestMethod.GET)
