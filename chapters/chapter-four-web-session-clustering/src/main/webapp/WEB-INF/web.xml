@@ -16,7 +16,8 @@
  	</servlet-class>
  	<init-param>
  		<param-name>contextConfigLocation</param-name>
- 		<param-value>classpath:META-INF/spring-onheap-tiered.xml</param-value>
+ 		<!--<param-value>classpath:META-INF/spring-ignite-cache.xml</param-value>-->
+        <param-value>/WEB-INF/spring-servlet.xml</param-value>
  	</init-param>
  	<load-on-startup>1</load-on-startup>
  </servlet>
@@ -38,7 +39,7 @@
     <!-- Ignite config from META-INF folder-->
     <context-param>
         <param-name>IgniteConfigurationFilePath</param-name>
-        <param-value>spring-onheap-tiered.xml</param-value>
+        <param-value>spring-ignite-cache.xml</param-value>
     </context-param>
     <!-- Specify the name of Ignite cache for web sessions. -->
     <context-param>
@@ -47,6 +48,6 @@
     </context-param>
     <context-param>
         <param-name>IgniteWebSessionsGridName</param-name>
-        <param-value>offheap-grid</param-value>
+        <param-value>session-grid</param-value>
     </context-param>
 </web-app>
