@@ -10,14 +10,6 @@ import org.springframework.cache.annotation.Cacheable;
 public class UserServices {
     private UserMapper userMapper;
 
-
-    @Cacheable("returnHello")
-    public String sayhello(String str){
-        System.out.println("Client says:"+ str);
-
-        return "hello"+str;
-    }
-
     public void setUserMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
