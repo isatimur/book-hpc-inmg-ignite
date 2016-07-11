@@ -20,5 +20,6 @@
     <module>chapter-three-hibernate</module>
     <module>chapter-three-offheap</module>
 	<module>chapter-four-web-session-clustering</module>
+    <module>chapter-cep</module>
   </modules>
 </project>
