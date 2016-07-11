@@ -20,7 +20,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 
 public class StreamWords {
-    private static final String FILE_FOR_STREAM ="/Users/shamim/Development/workshop/github/book-hpc-inmg-ignite/chapters/chapter-cep/src/main/resources/alice-in-wonderland.txt";
+    private static final String FILE_FOR_STREAM ="/alice-in-wonderland.txt";
     private static final int ENTRY_COUNT = 500000;
     /**
      * Starts words streaming.
@@ -38,12 +38,6 @@ public class StreamWords {
                 return;
             //long start = System.currentTimeMillis();
             CacheConfiguration<AffinityUuid, String> cfg = CacheConfig.wordCache();
-            cfg.setIndexedTypes(AffinityUuid.class, String.class);
-
-            // cfg.set
-            // Sliding window of 5 seconds.
-            cfg.setExpiryPolicyFactory(FactoryBuilder.factoryOf(
-                    new CreatedExpiryPolicy(new Duration(SECONDS, 5))));
 
             // The cache is configured with sliding window holding 1 second of the streaming data.
             IgniteCache<AffinityUuid, String> stmCache = ignite.getOrCreateCache(cfg);
@@ -53,7 +47,7 @@ public class StreamWords {
                 // Stream words from "alice-in-wonderland" book.
                 stmr.allowOverwrite(true);
 
-                try(BufferedReader br = new BufferedReader(new FileReader(FILE_FOR_STREAM))){
+                try(BufferedReader br = new BufferedReader(new InputStreamReader(StreamWords.class.getClass().getResourceAsStream(FILE_FOR_STREAM))) ){
                     String line;
                     while ((line = br.readLine())!= null ){
                         for(String word : line.split(" ")){

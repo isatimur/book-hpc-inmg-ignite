@@ -44,13 +44,10 @@
         <property name="cacheConfiguration">
             <list>
                 <bean class="org.apache.ignite.configuration.CacheConfiguration">
-                    <!-- Set a cache name. -->
                     <property name="name" value="words"/>
-                    <!-- Set cache mode. -->
-                    <property name="cacheMode" value="PARTITIONED"/>
+                    <!--<property name="cacheMode" value="PARTITIONED"/>
                     <property name="backups" value="1"/>
-                    <property name="statisticsEnabled" value="true" />
-
+                    <property name="statisticsEnabled" value="true" />-->
                 </bean>
             </list>
         </property>
