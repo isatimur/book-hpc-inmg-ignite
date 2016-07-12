@@ -29,8 +29,6 @@ public class QueryWords {
         // Mark this cluster member as client.
         Ignition.setClientMode(true);
 
-        // run it with config then, it will take the default-config.xml
-        //f:/workshop/ignite-1.6.0/apache-ignite-fabric-1.6.0-bin/config/default-config.xml
         try (Ignite ignite = Ignition.start("default-config.xml") ){
             if (!ExamplesUtils.hasServerNodes(ignite))
                 return;
