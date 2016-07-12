@@ -45,9 +45,6 @@
             <list>
                 <bean class="org.apache.ignite.configuration.CacheConfiguration">
                     <property name="name" value="words"/>
-                    <!--<property name="cacheMode" value="PARTITIONED"/>
-                    <property name="backups" value="1"/>
-                    <property name="statisticsEnabled" value="true" />-->
                 </bean>
             </list>
         </property>
